@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% load group_tag %}
+
+{% block content %}
+    <div class="app-content-header">
+        <h1 class="app-content-headerText">Пациенты</h1>
+        <button class="mode-switch" title="Switch Theme">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                <defs></defs>
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+        </button>
+        <button class="app-content-headerButton">Новый пациент</button>
+    </div>
+    <div class="products-area-wrapper tableView">
+        <div class="products-header">
+            <div class="product-cell image">ФИО</div>
+            <div class="product-cell category">Группа</div>
+            <div class="product-cell sales">Количество воды</div>
+            <div class="product-cell price">id</div>
+        </div>
+        {% for p in patients %}
+            <a class="products-row" href="{% url "patients:patient" patient_slug=p.slug %}">
+                <div class="product-cell image">
+                    <span>{{ p.username }} {{ p.first_name }}</span>
+                </div>
+                <div class="product-cell category">{{ group }}</div>
+                <div class="product-cell sales">{{ p.portion_of_water }}</div>
+                <div class="product-cell stock">{{ p.display_id }}</div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{#{% block content %}#}
+{#{% if role == 1 %}#}
+{#    <div class="col-md-12 bg-white p-4 mb-3 mt-3 rounded shadow">#}
+{#        <h2 class="text-center mb-4">Список пользователей для опекуна или обычного пользователя</h2>#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#        {% for p in patients %}#}
+{#            <div class="col-lg-4 col-md-6 p-4">#}
+{#            <div class="card border-primary rounded shadow">#}
+{#                <div class="card-body">#}
+{#                    <a href="{% url "patients:patient" patient_slug=p.slug %}">#}
+{#                        <p class="card-title">{{ p.username }} {{ p.first_name }}</p>#}
+{#                    </a>#}
+{#                    <p class="card-text">Телефон: {{ p.number }}</p>#}
+{#                    <p class="card-text">Объем воды: {{ p.portion_of_water }}</p>#}
+{#                    <p class="product_id">id: {{ p.display_id }}</p>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#{% elif role == 2 %}#}
+{#    <div class="col-md-12 bg-white p-4 mb-3 mt-3 rounded shadow">#}
+{#        <h2 class="text-center mb-4">Список пользователей для медучреждения</h2>#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        {% for p in patients %}#}
+{#            <div class="col-12 bg-dark-subtle rounded shadow p-1 mb-2">#}
+{#                <h4>Группа: {{ p.groups }}</h4>#}
+{#                <div class="row">#}
+{#                    <a href="{% url "patients:patient" patient_slug=p.slug %}" class="text-decoration-none">#}
+{#                        <div class="bg-light-subtle col-11 rounded shadow p-1 mx-auto card-group#}
+{#                                    justify-content-center align-items-center mb-1">#}
+{#                            <h5 class="col-6">{{ p.username }} {{ p.first_name }}</h5>#}
+{#                            <h6 class="col-4">Телефон: {{ p.number }}</h6>#}
+{#                            <h6 class="col-1">id: {{ p.display_id }}</h6>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#{% else %}#}
+{#{% endif %}#}
+{#{% endblock %}#}

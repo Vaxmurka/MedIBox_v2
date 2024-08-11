@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="app-content-header">
+        <h1 class="app-content-headerText">Профиль</h1>
+        <button class="mode-switch" title="Switch Theme">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                <defs></defs>
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+        </button>
+        <button class="app-content-headerButton">Редактировать</button>
+    </div>
+
+    <div class="patient">
+        <div class="patient__content">
+            <div class="patient__content_user">
+                <p class="patient__content-TextName">{{ first_name }} {{ username }}</p>
+                <p class="patient__content-TextID">id: {{ id }}</p>
+            </div>
+
+            <div class="patient__content_info">
+                <p class="patient__content-TextField">Группа: {{ group }}</p>
+                <p class="patient__content-TextField">Телефон: {{ phone_number }}</p>
+                <p class="patient__content-TextField">Количество воды: {{ portion_of_water }}</p>
+            </div>
+
+<!--                <label for="first_name" class="patient__content-label">Имя-->
+<!--                    <input id="first_name" type="text" class="patient__content-input" placeholder="Имя">-->
+<!--                </label>-->
+
+<!--                <label for="username" class="patient__content-label">Фамилия-->
+<!--                    <input id="username" type="text" class="patient__content-input" placeholder="Фамилия">-->
+<!--                </label>-->
+
+<!--                <label for="telegram" class="patient__content-label">Телеграм-->
+<!--                    <input id="telegram" type="text" class="patient__content-input" placeholder="https://t.me/user">-->
+<!--                </label>-->
+
+<!--                <label for="email" class="patient__content-label">E-mail-->
+<!--                    <input id="email" type="email" class="patient__content-input" placeholder="user@example.com">-->
+<!--                </label>-->
+<!--                <button type="submit" class="patient__content-btn">Сохранить</button>-->
+        </div>
+    </div>
+{% endblock %}

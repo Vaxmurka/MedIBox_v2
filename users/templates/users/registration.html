@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{#{% block modal_cart %}#}
+{#{% include "includes/cart_button.html" %}#}
+{#{% endblock  %}#}
+
+{% block content %}
+<div class="row">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-9 bg-white p-4 mb-5 mx-2 rounded shadow">
+                <h2 class="text-center mb-4">Регистрация</h2>
+                <form action="{% url "user:registration" %}" method="post">
+                    {% csrf_token %}
+{#                    {{ form.as_p }}#}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_role" class="form-select">Роль</label>
+                            {{ form.role }}
+                            {% if form.role.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_first_name" class="form-label">Имя</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_username" class="form-label">Фамилия</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.username.errors}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_email" class="form-label">Email*</label>
+                            {{ form.email }}
+                                {% if form.email.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.email.errors}}</div>
+                                {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_telegram" class="form-label">Telegram</label>
+                            {{ form.telegram }}
+                                {% if form.telegram.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.telegram.errors}}</div>
+                                {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_password1" class="form-label">Пароль</label>
+                            {{ form.password1 }}
+                            {% if form.password1.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.password1.errors}}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_password2" class="form-label">Подтверждение пароля</label>
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.password2.errors}}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="btn btn-dark btn-block">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
