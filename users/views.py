@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 
 def login(request) -> Any | HttpResponse:
     if request.method == "POST":
@@ -66,3 +69,8 @@ def profile(request):
     }
 
     return render(request, "users/profile.html", context)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('main:index'))
