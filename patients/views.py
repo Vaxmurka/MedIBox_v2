@@ -12,7 +12,7 @@ def allpatients(request, group_slug=None):
     group = None
     groups = Groups.objects.all()
     patients = Patient.objects.all()
-    role: int = User.get_role(request.user) #request.user
+    # role: int = User.get_role(request.user) #request.user
 
     if group_slug:
         group = get_object_or_404(Groups, slug=group_slug)
@@ -23,7 +23,7 @@ def allpatients(request, group_slug=None):
         'group': group,
         'groups': groups,
         'patients': patients,
-        'role': role,
+        # 'role': role,
     }
     return render(request, 'allPatients.html', context)
 

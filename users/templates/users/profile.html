@@ -69,8 +69,8 @@
             </div>
         </div>
             <div class="profile__buttons">
-                <button type="submit" class="profile__card-btn btnSave">Сохранить</button>
-                <button type="button" class="profile__card-btn btnRemove">Удалить</button>
+                <button type="submit" name="submit" value="save" class="profile__card-btn btnSave">Сохранить</button>
+                <a type="button" class="profile__card-btn btnRemove" href="{% url "user:delete" %}">Удалить</a>
             </div>
     </form>
 {% endblock %}

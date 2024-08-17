@@ -6,50 +6,40 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
+from users.models import User
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
 
-def login(request) -> Any | HttpResponse:
+def logreg(request):
     if request.method == "POST":
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
+        forml = UserLoginForm(data=request.POST)
+        formr = UserRegistrationForm(data=request.POST)
+        if formr.is_valid():
+            formr.save()
+            user: Any = formr.instance
+            auth.login(request, user)
+            return HttpResponseRedirect(reverse('users:logreg'))
+
+        elif forml.is_valid():
             username: Any = request.POST['username']
             password: Any = request.POST['password']
             user: Any = auth.authenticate(username=username, password=password)
             if user:
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('users:profile'))
+
     else:
-        form = UserLoginForm()
-
-    context: dict[str, Any] = {
-        'title': 'MedIBox - Авторизация',
-        'form': form
-    }
-
-    return render(request, "users/login.html", context)
-
-
-def registration(request):
-    if request.method == "POST":
-        form = UserRegistrationForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            user: Any = form.instance
-            auth.login(request, user)
-            return HttpResponseRedirect(reverse('users:login'))
-    else:
-        form = UserRegistrationForm()
+        forml = UserLoginForm()
+        formr = UserRegistrationForm()
 
     context = {
-        'title': 'MedIBox - Регистрация',
-        'form': form
-
+        'forml': forml,
+        'formr': formr
     }
 
-    return render(request, "users/registration.html", context)
+    return render(request, 'users/logSig.html', context)
 
 
 @login_required
@@ -71,6 +61,13 @@ def profile(request):
     return render(request, "users/profile.html", context)
 
 
+@login_required
+def profile_delete(request):
+    request.user.delete()
+
+    return HttpResponseRedirect(reverse('users:logreg'))
+
+
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('main:index'))
+    return HttpResponseRedirect(reverse('users:logreg'))
