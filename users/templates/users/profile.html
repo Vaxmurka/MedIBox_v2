@@ -70,7 +70,8 @@
         </div>
             <div class="profile__buttons">
                 <button type="submit" name="submit" value="save" class="profile__card-btn btnSave">Сохранить</button>
-                <a type="button" class="profile__card-btn btnRemove" href="{% url "user:delete" %}">Удалить</a>
+                <a style="display: flex; align-items: center; justify-content: center"
+                   type="button" class="profile__card-btn btnRemove" href="{% url "user:delete" %}">Удалить</a>
             </div>
     </form>
 {% endblock %}

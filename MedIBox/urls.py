@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('main.urls', namespace='main')),
     path('', include('users.urls', namespace='user')),
     path('', include('patients.urls', namespace='patients')),
+    path('', include('device.urls', namespace='device')),
 ]

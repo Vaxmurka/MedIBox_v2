@@ -23,6 +23,7 @@ def allpatients(request, group_slug=None):
         'group': group,
         'groups': groups,
         'patients': patients,
+        'patient': 'patient',
         # 'role': role,
     }
     return render(request, 'allPatients.html', context)

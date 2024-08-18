@@ -6,6 +6,7 @@ def index(request):
 
     context = {
         'title': 'MedIBox - Главная',
+        'main': 'main',
         'content': 'Веб-интерфейс управления таблетницами MedIBox',
     }
 
