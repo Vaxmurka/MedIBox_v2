@@ -148,10 +148,31 @@
 
 <script>
     let modeSwitch = document.querySelector('.mode-switch');
+
+    // Проверка наличия класса light
+    if (document.documentElement.classList.contains('light')) {
+      modeSwitch.classList.add('active');
+    } else {
+      modeSwitch.classList.remove('active');
+    }
+
     modeSwitch.addEventListener('click', function () {
-        document.documentElement.classList.toggle('light');
-        modeSwitch.classList.toggle('active');
+      // Переключение темы
+      document.documentElement.classList.toggle('light');
+      modeSwitch.classList.toggle('active');
+
+      // Сохранение состояния переключения
+      localStorage.setItem('theme', document.documentElement.classList.contains('light') ? 'light' : 'dark');
     });
+
+    // Загрузка темы при загрузке страницы
+    const theme = localStorage.getItem('theme');
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+    } else if (theme === 'dark') {
+      document.documentElement.classList.remove('light');
+    }
+
 </script>
 </body>
 </html>

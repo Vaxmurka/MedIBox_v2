@@ -272,7 +272,7 @@ a {
   aspect-ratio: 1;
   position: relative;
   border-radius: 5px;
-  color: white;
+  color: var(--app-content-main-color);
 }
 .burger-button::after {
   position: absolute;
@@ -282,7 +282,7 @@ a {
   content: "";
   width: 50%;
   height: 2px;
-  background-color: var(--color-white);
+  background-color: var(--app-content-main-color);
   border-radius: 5px;
   box-shadow: 0 -8px, 0 8px;
 }
@@ -303,7 +303,7 @@ a {
   left: 7px;
   width: 70%;
   height: 2px;
-  background-color: var(--color-white);
+  background-color: var(--app-content-main-color);
   border-radius: 5px;
 }
 .cross-button::before {
@@ -320,7 +320,7 @@ a {
   border: none;
   font-size: 20px;
   background-color: var(--sidebar);
-  color: white;
+  color: var(--app-content-main-color);
 }
 .mobile-overlay:modal {
   max-height: 100%;
@@ -340,6 +340,9 @@ a {
   display: flex;
   align-items: center;
   height: 48px;
+}
+.mobile-overlay-list-item {
+  color: var(--app-content-main-color);
 }
 .mobile-overlay__link::after {
   content: "";
