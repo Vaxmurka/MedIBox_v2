@@ -52,10 +52,16 @@ def profile(request):
     else:
         form = ProfileForm(instance=request.user)
 
+    x = User.objects.filter(id=request.user.id).values_list()[0][2]
+    print(x)
+    admin = ''
+    if x: admin = 'True'
+
     context = {
         'title': 'MedIBox - Профиль',
         'content': 'Это ты',
-        'form': form
+        'form': form,
+        'admin': admin
     }
 
     return render(request, "users/profile.html", context)
