@@ -12,6 +12,7 @@ def allpatients(request):
     groups = Groups.objects.all()
     patients = Patient.objects.filter(user_id=request.user.id)
     group = groups.values_list()
+    # print(group[0][1])
     # [0][1]
 
     context = {
