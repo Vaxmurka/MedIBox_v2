@@ -72,10 +72,35 @@ class Patient(models.Model):
         return super().save(*args, **kwargs)
 
 
-class Pills(models.Model):
+class Schedule(models.Model):
 
+    # pills = models.ForeignKey(Pills, on_delete=models.CASCADE, blank=True, null=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
+    # first_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="first_taking")
+    # second_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="second_taking")
+    # third_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="third_taking")
+    # quantity = models.ForeignKey(Quantity, on_delete=models.CASCADE, blank=True, null=True)
+    # days = models.ForeignKey(Days, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Расписание'
+        verbose_name_plural = 'Расписание'
+        db_table = 'Shedule'
+
+
+class Taking(models.Model):
+    shedule = models.ForeignKey(Schedule, models.CASCADE)
+
+    class Meta:
+        verbose_name = 'приема'
+        verbose_name_plural = 'Прием'
+        db_table = 'Taking'
+
+
+class Pills(models.Model):
+    taking = models.ForeignKey(Taking, models.CASCADE, )
     name = models.CharField(max_length=256)
-    image = models.ImageField()
+    # image = models.ImageField()
     container = models.IntegerField()
 
     class Meta:
@@ -87,26 +112,34 @@ class Pills(models.Model):
         return f'{self.name}'
 
 
-class Schedule(models.Model):
-
-    pills = models.ForeignKey(Pills, on_delete=models.CASCADE)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    first_taking = models.CharField(max_length=256)
-
-    class Meta:
-        verbose_name = 'Расписание'
-        verbose_name_plural = 'Расписание'
-        db_table = 'Shedule'
-
-
-class TakingPills(models.Model):
-
-    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
-    time = models.TimeField()
+class Quantity(models.Model):
+    shedule = models.ForeignKey(Schedule, models.CASCADE)
     quantity_pills = models.IntegerField()
-    quantity_days = models.IntegerField()
 
     class Meta:
+
         verbose_name = 'Прием таблеток'
         verbose_name_plural = 'Прием таблеток'
         db_table = 'TekingPills'
+
+
+class Time(models.Model):
+    taking = models.ForeignKey(Taking, models.CASCADE, )
+    time = models.TimeField()
+
+    class Meta:
+        verbose_name = 'Время'
+        verbose_name_plural = 'Время'
+        db_table = 'Time'
+
+
+class Days(models.Model):
+    shedule = models.ForeignKey(Schedule, models.CASCADE)
+    quantity_days = models.IntegerField()
+
+    class Meta:
+        verbose_name = 'Дней'
+        verbose_name_plural = 'Дни'
+        db_table = 'Days'
+
+

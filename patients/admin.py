@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Groups, Patient, Voices, Schedule, Pills, TakingPills
+from .models import Groups, Patient, Voices, Schedule, Pills, Quantity, Time, Days
 
 
 @admin.register(Groups)
@@ -16,6 +16,8 @@ class PatientAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Voices, admin.ModelAdmin)
-admin.site.register(Schedule, admin.ModelAdmin)
 admin.site.register(Pills, admin.ModelAdmin)
-admin.site.register(TakingPills, admin.ModelAdmin)
+admin.site.register(Quantity, admin.ModelAdmin)
+admin.site.register(Time, admin.ModelAdmin)
+admin.site.register(Days, admin.ModelAdmin)
+admin.site.register(Schedule, admin.ModelAdmin)

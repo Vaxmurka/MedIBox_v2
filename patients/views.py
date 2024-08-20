@@ -11,7 +11,8 @@ from users.models import User
 def allpatients(request):
     groups = Groups.objects.all()
     patients = Patient.objects.filter(user_id=request.user.id)
-    group = groups.values_list()[0][1]
+    group = groups.values_list()
+    # [0][1]
 
     context = {
         'title': 'MedIBox - Пользователи',
