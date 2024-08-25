@@ -53,16 +53,19 @@ def send_json():
                 quantity_pills = taking.quantity_pills
                 time = taking.time
 
-                # pill = Pills.objects.filter(taking=taking)
+                data_pill = {}
+                pills = Pills.objects.filter(taking=taking)
                 # pill = Pills.objects.filter(t)
-                # name_p = pill.name
-                # container = pill.container
+                for pill in pills:
+                    name_p = pill.name
+                    container = pill.container
+                    data_pill = {
+                        'Название': name_p,
+                        'Контейнер': container,
+                    }
 
                 data_taking = {
-                    # 'таблетка': {
-                    #     'Название': name_p,
-                    #     'Контейнер': container,
-                    # },
+                    'таблетка': data_pill,
                     'количество': quantity_pills,
                     'время': time,
                     'дни': {
@@ -89,7 +92,6 @@ def send_json():
             data.append(data_patient)
     print(data)
     return data
-
 
 
 def index(request):
