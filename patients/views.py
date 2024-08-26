@@ -9,16 +9,25 @@ from users.models import User
 
 
 def allpatients(request):
-    groups = Groups.objects.all()
+    users = User.objects.all()
+    data_group = None
     patients = Patient.objects.filter(user_id=request.user.id)
-    group = groups.values_list()
+    for user in users:
+
+        groups = Groups.objects.filter(user=user)
+        for group in groups:
+            group = group.name
+            data_group = group
+            # data_group = {
+            #     'what': group
+            # }
     # print(group[0][1])
     # [0][1]
 
     context = {
         'title': 'MedIBox - Пользователи',
-        'group': group,
-        'groups': groups,
+        'group': data_group,
+        # 'groups': groups,
         'patients': patients,
         'patient': 'patient',
     }

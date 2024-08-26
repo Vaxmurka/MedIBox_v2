@@ -26,6 +26,7 @@ class Voices(models.Model):
 
 
 class Groups(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='User_groups', null=True, blank=True)
 
     name = models.CharField(max_length=256)
     slug = models.SlugField(max_length=200, unique=True, db_index=True, verbose_name='URL')
