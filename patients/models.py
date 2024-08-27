@@ -7,6 +7,7 @@ from django.urls import reverse
 
 
 class Voices(models.Model):
+    name = models.CharField(max_length=120, unique=True, blank=True, null=True)
 
     voice1 = models.FileField(blank=True, null=True)
     voice2 = models.FileField(blank=True, null=True)
@@ -24,6 +25,9 @@ class Voices(models.Model):
         verbose_name_plural = 'Звук'
         db_table = 'Voices'
 
+    def __str__(self):
+        return f'Звуки: {self.name}'
+
 
 class Groups(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='User_groups', null=True, blank=True)
@@ -36,7 +40,7 @@ class Groups(models.Model):
         verbose_name_plural = 'Группа'
         db_table = 'Groups'
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -52,13 +56,14 @@ class Patient(models.Model):
     number = models.CharField(max_length=256, default="+79000000000")
     voices = models.ForeignKey(Voices, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name='URL')
+    USERNAME_FIELD = 'username'
 
     class Meta:
         verbose_name = 'Пациента'
         verbose_name_plural = 'Пациенты'
         db_table = 'Patients'
 
-    def str(self):
+    def __str__(self):
         return f'{self.username} {self.first_name}'
 
     def get_absolute_url(self):
@@ -67,26 +72,10 @@ class Patient(models.Model):
     def display_id(self):
         return f'{self.fingerprint:05}'
 
-    def save(self, *args, **kwargs):  # new
-        if not self.slug:
-            self.slug = slugify(self.fingerprint)
-        return super().save(*args, **kwargs)
-
-
-# class Schedule(models.Model):
-#
-#     # pills = models.ForeignKey(Pills, on_delete=models.CASCADE, blank=True, null=True)
-#     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
-#     # first_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="first_taking")
-#     # second_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="second_taking")
-#     # third_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="third_taking")
-#     # quantity = models.ForeignKey(Quantity, on_delete=models.CASCADE, blank=True, null=True)
-#     # days = models.ForeignKey(Days, on_delete=models.CASCADE, blank=True, null=True)
-#
-#     class Meta:
-#         verbose_name = 'Расписание'
-#         verbose_name_plural = 'Расписание'
-#         db_table = 'Shedule'
+    # def save(self, *args, **kwargs):  # new
+    #     if not self.slug:
+    #         self.slug = slugify(self.fingerprint)
+    #     return super().save(*args, **kwargs)
 
 
 class Pills(models.Model):
@@ -99,7 +88,7 @@ class Pills(models.Model):
         verbose_name_plural = 'Таблетка'
         db_table = 'Pills'
 
-    def str(self):
+    def __str__(self):
         return f'{self.name} - {self.container}'
 
 
@@ -121,3 +110,6 @@ class Taking(models.Model):
         verbose_name = 'приема'
         verbose_name_plural = 'Прием'
         db_table = 'Taking'
+
+    def __str__(self):
+        return f'{self.patient} - Таблетка: {self.pills} Время: {self.time}, Количество: {self.quantity_pills}'

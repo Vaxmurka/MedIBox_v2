@@ -12,7 +12,8 @@ class GroupsAdmin(admin.ModelAdmin):
 class PatientAdmin(admin.ModelAdmin):
     # list_display = ('first_name', 'username', 'fingerprint', 'number')
     # list_filter = ['available', 'created', 'updated']
-    prepopulated_fields = {'slug': ('fingerprint',)}
+    # prepopulated_fields = {'slug': ('fingerprint',)}
+    prepopulated_fields = {'slug': ('username',)}
 
 
 admin.site.register(Voices, admin.ModelAdmin)
