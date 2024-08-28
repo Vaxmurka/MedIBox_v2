@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-# from patients.forms import PatientsForm
+from patients.forms import PatientsForm
 from patients.models import Patient, Groups
 from django.contrib.auth.decorators import login_required
 from users.models import User
@@ -23,6 +23,13 @@ def allpatients(request):
             # }
     # print(group[0][1])
     # [0][1]
+    # if request.method == "POST":
+    #     form = PatientsForm(data=request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return HttpResponseRedirect(reverse('patients:allpatients_list'))
+    # else:
+    #     form = PatientsForm()
 
     context = {
         'title': 'MedIBox - Пользователи',
@@ -30,6 +37,7 @@ def allpatients(request):
         # 'groups': groups,
         'patients': patients,
         'patient': 'patient',
+        # 'form': form
     }
     return render(request, 'allPatients.html', context)
 
@@ -52,3 +60,13 @@ def patient_detail(request, patient_slug):
     return render(request, 'patient.html', context)
 
 
+def patient_reg(request):
+    if request.method == "POST":
+        form = PatientsForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('patients:allpatients_list'))
+    else:
+        form = PatientsForm()
+
+    return render(request, 'createPatient.html', {"form": form})

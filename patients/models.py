@@ -52,6 +52,7 @@ class Patient(models.Model):
     number = models.CharField(max_length=256, default="+79000000000")
     voices = models.ForeignKey(Voices, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name='URL')
+    USERNAME_FIELD = 'username'
 
     class Meta:
         verbose_name = 'Пациента'

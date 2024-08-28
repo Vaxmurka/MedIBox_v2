@@ -1048,3 +1048,53 @@ body {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
+/*Dialog Styles*/
+dialog {
+  padding: 2rem 3rem;
+  background: white;
+  max-width: 800px;
+  border-radius: 20px;
+  border: 0;
+  box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease both;
+}
+dialog::backdrop {
+  animation: fadeIn 1s ease both;
+  background: rgba(255, 255, 255, 0.4);
+  z-index: 2;
+  backdrop-filter: blur(20px);
+}
+dialog .x {
+  filter: grayscale(1);
+  border: none;
+  background: none;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  transition: ease filter, transform 0.3s;
+  cursor: pointer;
+  transform-origin: center;
+}
+dialog .x:hover {
+  filter: grayscale(0);
+  transform: scale(1.1);
+}
+dialog h2 {
+  font-weight: 600;
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
+dialog p {
+  font-size: 1rem;
+  line-height: 1.3rem;
+  padding: 0.5rem 0;
+}
+dialog p a:visited {
+  color: rgb(29, 92, 255);
+}
+
+.patient__dialog {
+
+}
+
