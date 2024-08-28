@@ -3,41 +3,31 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from patients.forms import PatientsForm
-from patients.models import Patient, Groups
+from patients.models import Patient
 from django.contrib.auth.decorators import login_required
-from users.models import User
 
 
 def allpatients(request):
-    users = User.objects.all()
-    data_group = None
     patients = Patient.objects.filter(user_id=request.user.id)
-    for user in users:
 
-        groups = Groups.objects.filter(user=user)
-        for group in groups:
-            group = group.name
-            data_group = group
-            # data_group = {
-            #     'what': group
-            # }
-    # print(group[0][1])
-    # [0][1]
-    # if request.method == "POST":
+    # if request.method == 'POST':
     #     form = PatientsForm(data=request.POST)
+    #     print('form.created')
     #     if form.is_valid():
+    #         print('form.save')
     #         form.save()
     #         return HttpResponseRedirect(reverse('patients:allpatients_list'))
+    #     else:
+    #         print('form.errors')
     # else:
+    #     print('form.null')
     #     form = PatientsForm()
 
     context = {
         'title': 'MedIBox - Пользователи',
-        'group': data_group,
-        # 'groups': groups,
         'patients': patients,
         'patient': 'patient',
-        # 'form': form
+        # "form": form,
     }
     return render(request, 'allPatients.html', context)
 
@@ -60,13 +50,17 @@ def patient_detail(request, patient_slug):
     return render(request, 'patient.html', context)
 
 
-def patient_reg(request):
-    if request.method == "POST":
+def create_patient(request):
+    if request.method == 'GET':
         form = PatientsForm(data=request.POST)
         if form.is_valid():
+            print('form.save')
             form.save()
             return HttpResponseRedirect(reverse('patients:allpatients_list'))
+        else:
+            print('form.errors')
     else:
+        print('form.null')
         form = PatientsForm()
 
-    return render(request, 'createPatient.html', {"form": form})
+    return render(request, 'createPatient.html', {'form': form})

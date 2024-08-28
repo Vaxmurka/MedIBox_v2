@@ -11,7 +11,7 @@
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
             </svg>
         </button>
-        <a class="app-content-headerButton" href="{% url "patients:newPatient" %}">Новый пациент</a>
+        <button class="app-content-headerButton">Новый пациент</button>
     </div>
     <div class="products-area-wrapper tableView">
         <div class="products-header">
@@ -31,23 +31,6 @@
             </a>
         {% endfor %}
     </div>
-
-{#    <dialog id="dialog">#}
-{#        <form class="patient__dialog">#}
-{#            {% csrf_token %}#}
-{#            {{ form.username }}#}
-{#            {{ form.first_name }}#}
-{#            {{ form.fingerprint }}#}
-{#            {{ form.portion_of_water }}#}
-{#            {{ form.number }}#}
-{#            {{ form.voices }}#}
-{#            {{ form.groups }}#}
-{#            {{ form.user }}#}
-{##}
-{#            <button type="submit">Создать</button>#}
-{#        </form>#}
-{#        <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>#}
-{#    </dialog>#}
 {% endblock %}
 
 {#{% block content %}#}
