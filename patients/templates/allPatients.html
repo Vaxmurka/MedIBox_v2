@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {#{% load group_tag %}#}
-
 {% block content %}
     <div class="app-content-header">
         <h1 class="app-content-headerText">Пациенты</h1>
@@ -11,7 +10,8 @@
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
             </svg>
         </button>
-        <button class="app-content-headerButton">Новый пациент</button>
+        <a class="app-content-headerButton" href="{% url "patients:newpatient" %}">Новый пациент</a>
+{#    onclick="window.dialog.showModal();"  #}
     </div>
     <div class="products-area-wrapper tableView">
         <div class="products-header">
@@ -26,11 +26,21 @@
                     <span>{{ p.username }} {{ p.first_name }}</span>
                 </div>
                 <div class="product-cell category">{{ group }}</div>
+{#                <div class="product-cell category">{{ p.groups }}</div>#}
                 <div class="product-cell sales">{{ p.portion_of_water }}</div>
                 <div class="product-cell stock">{{ p.display_id }}</div>
             </a>
         {% endfor %}
     </div>
+
+{#    <dialog id="dialog">#}
+{#        <form class="shop__dialog">#}
+{#            {% csrf_token %}#}
+{#            {{ form.as_p }}#}
+{#            <button type="submit">Создать</button>#}
+{#        </form>#}
+{#        <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>#}
+{#    </dialog>#}
 {% endblock %}
 
 {#{% block content %}#}

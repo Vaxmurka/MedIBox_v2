@@ -5,27 +5,21 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Создание пользователя</title>
 </head>
 <body>
-<<<<<<< HEAD
-    <form class="patient__dialog">
+    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post">
         {% csrf_token %}
-        {{ form.username }}
-        {{ form.first_name }}
-        {{ form.fingerprint }}
-        {{ form.portion_of_water }}
-        {{ form.number }}
-        {{ form.voices }}
-        {{ form.groups }}
         {{ form.user }}
+        {{ form.group }}
+        {{ form.voices }}
+        {{ form.first_name }}
+        {{ form.username }}
+        {{ form.fingerprint }}
+        {{ form.number }}
+        {{ form.portion_of_water }}
 
-=======
-    <form class="shop__dialog">
-        {% csrf_token %}
-        {{ form.as_p }}
->>>>>>> origin/main
-        <button type="submit">Создать</button>
+        <button type="submit" name="submit">Создать</button>
     </form>
 </body>
 </html>

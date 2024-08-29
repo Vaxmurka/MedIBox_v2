@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from users.models import User
 from django.template.defaultfilters import slugify
-
 from django.urls import reverse
 
 
@@ -31,7 +30,6 @@ class Voices(models.Model):
 
 class Groups(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='User_groups', null=True, blank=True)
-
     name = models.CharField(max_length=256)
     slug = models.SlugField(max_length=200, unique=True, db_index=True, verbose_name='URL')
 
@@ -45,10 +43,8 @@ class Groups(models.Model):
 
 
 class Patient(models.Model):
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patients')
-    groups = models.ForeignKey(Groups, on_delete=models.CASCADE, related_name='patients')
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patients', null=True)
+    groups = models.ForeignKey(Groups, on_delete=models.CASCADE, related_name='patients', null=True)
     first_name = models.CharField(max_length=256)
     username = models.CharField(max_length=256)
     fingerprint = models.PositiveIntegerField()
@@ -72,6 +68,25 @@ class Patient(models.Model):
     def display_id(self):
         return f'{self.fingerprint:05}'
 
+    def save(self, *args, **kwargs):  # new
+        self.slug = slugify(self.fingerprint)
+        super(Patient, self).save(*args, **kwargs)
+
+
+# class Schedule(models.Model):
+#
+#     # pills = models.ForeignKey(Pills, on_delete=models.CASCADE, blank=True, null=True)
+#     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, blank=True, null=True)
+#     # first_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="first_taking")
+#     # second_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="second_taking")
+#     # third_taking = models.ForeignKey(Time, on_delete=models.CASCADE, blank=True, null=True, related_name="third_taking")
+#     # quantity = models.ForeignKey(Quantity, on_delete=models.CASCADE, blank=True, null=True)
+#     # days = models.ForeignKey(Days, on_delete=models.CASCADE, blank=True, null=True)
+#
+#     class Meta:
+#         verbose_name = 'Расписание'
+#         verbose_name_plural = 'Расписание'
+#         db_table = 'Shedule'
     # def save(self, *args, **kwargs):  # new
     #     if not self.slug:
     #         self.slug = slugify(self.fingerprint)
@@ -97,7 +112,6 @@ class Taking(models.Model):
     pills = models.ForeignKey(Pills, models.CASCADE, blank=True, null=True)
     time = models.TimeField()
     quantity_pills = models.IntegerField()
-
     monday = models.BooleanField(default=False)
     tuesday = models.BooleanField(default=False)
     wednesday = models.BooleanField(default=False)
@@ -105,7 +119,6 @@ class Taking(models.Model):
     friday = models.BooleanField(default=False)
     saturday = models.BooleanField(default=False)
     sunday = models.BooleanField(default=False)
-
     class Meta:
         verbose_name = 'приема'
         verbose_name_plural = 'Прием'
