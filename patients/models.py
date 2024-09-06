@@ -119,6 +119,7 @@ class Taking(models.Model):
     friday = models.BooleanField(default=False)
     saturday = models.BooleanField(default=False)
     sunday = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = 'приема'
         verbose_name_plural = 'Прием'
