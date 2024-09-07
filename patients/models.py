@@ -8,16 +8,7 @@ from django.urls import reverse
 class Voices(models.Model):
     name = models.CharField(max_length=120, unique=True, blank=True, null=True)
 
-    voice1 = models.FileField(blank=True, null=True)
-    voice2 = models.FileField(blank=True, null=True)
-    voice3 = models.FileField(blank=True, null=True)
-    voice4 = models.FileField(blank=True, null=True)
-    voice5 = models.FileField(blank=True, null=True)
-    voice6 = models.FileField(blank=True, null=True)
-    voice7 = models.FileField(blank=True, null=True)
-    voice8 = models.FileField(blank=True, null=True)
-    voice9 = models.FileField(blank=True, null=True)
-    voice10 = models.FileField(blank=True, null=True)
+    voice = models.FileField(blank=True, verbose_name='voice', upload_to='MedIbow_v2/voices/', null=True)
 
     class Meta:
         verbose_name = 'Звуки'
@@ -41,6 +32,10 @@ class Groups(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):  # new
+        self.slug = slugify(self.name)
+        super(Groups, self).save(*args, **kwargs)
+
 
 class Patient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patients', null=True)
@@ -50,7 +45,7 @@ class Patient(models.Model):
     fingerprint = models.PositiveIntegerField()
     portion_of_water = models.CharField(max_length=256)
     number = models.CharField(max_length=256, default="+79000000000")
-    voices = models.ForeignKey(Voices, on_delete=models.CASCADE)
+    voices = models.ForeignKey(Voices, on_delete=models.CASCADE, null=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=True, verbose_name='URL')
     USERNAME_FIELD = 'username'
 

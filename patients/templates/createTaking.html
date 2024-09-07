@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Создание расписания</title>
+</head>
+<body>
+    <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">
+        {% csrf_token %}
+        {{ formt.patient }}
+        {{ formt.pills }}
+        {{ formt.time }}
+        {{ formt.quantity_pills }}
+        {{ formt.monday }}
+        {{ formt.tuesday }}
+        {{ formt.wednesday }}
+        {{ formt.thursday }}
+        {{ formt.friday }}
+        {{ formt.saturday }}
+        {{ formt.sunday }}
+
+        <button type="submit" name="submit">Создать</button>
+        <button type="button" onclick="window.dialog.showModal()" >добавить таблетку</button>
+    </form>
+</body>
+<dialog id="dialog">
+        <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">
+        {% csrf_token %}
+        {{ formpi.name }}
+        {{ formpi.container }}
+
+        <button type="submit" name="submitT">Создать</button>
+    </form>
+        <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
+</dialog>
+</html>

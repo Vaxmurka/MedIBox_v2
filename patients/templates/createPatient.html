@@ -10,16 +10,39 @@
 <body>
     <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post">
         {% csrf_token %}
-        {{ form.user }}
-        {{ form.group }}
-        {{ form.voices }}
-        {{ form.first_name }}
-        {{ form.username }}
-        {{ form.fingerprint }}
-        {{ form.number }}
-        {{ form.portion_of_water }}
+        {{ formp.groups }}
+        {{ formp.voices }}
+        {{ formp.first_name }}
+        {{ formp.username }}
+        {{ formp.fingerprint }}
+        {{ formp.number }}
+        {{ formp.portion_of_water }}
 
         <button type="submit" name="submit">Создать</button>
+        <button type="button" onclick="window.dialog.showModal()" >Добавить звук</button>
+        <button type="button" onclick="window.dialogg.showModal()" >Создать группу</button>
     </form>
 </body>
+<dialog id="dialog">
+    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" id="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formv.name }}
+        {{ formv.voice }}
+
+        <button type="submit" name="submitV">Создать</button>
+        <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
+    </form>
+
+</dialog>
+<dialog id="dialogg">
+    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" id="form">
+        {% csrf_token %}
+        {{ formg.user }}
+        {{ formg.name }}
+
+        <button type="submit" name="submitV">Создать</button>
+        <button onclick="window.dialogg.close();" aria-label="close" class="x">❌</button>
+    </form>
+
+</dialog>
 </html>

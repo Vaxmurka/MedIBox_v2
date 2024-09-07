@@ -11,6 +11,7 @@
             </svg>
         </button>
         <button class="app-content-headerButton">Редактировать</button>
+        <a href={% url "patients:newtaking" %}>Создать прием</a>
     </div>
 
     <div class="patient">
@@ -21,7 +22,7 @@
             </div>
 
             <div class="patient__content_info">
-                <p class="patient__content-TextField">Группа: {{ group }}</p>
+                <p class="patient__content-TextField">Группа: {{ groups }}</p>
                 <p class="patient__content-TextField">Телефон: {{ phone_number }}</p>
                 <p class="patient__content-TextField">Количество воды: {{ portion_of_water }}</p>
             </div>

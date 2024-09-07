@@ -49,7 +49,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from patients.models import Patient, Groups, Voices
+from patients.models import Patient, Groups, Voices, Taking, Pills
 from users.models import User
 
 
@@ -57,8 +57,8 @@ class PatientsForm(ModelForm):
     class Meta:
         model = Patient
         fields = (
-            'user',
-            'group',
+            # 'user',
+            'groups',
             'voices',
             'first_name',
             'username',
@@ -67,14 +67,18 @@ class PatientsForm(ModelForm):
             'portion_of_water',
             # 'slug',
         )
-    user = forms.ModelChoiceField(
-        queryset=User.objects.all(),
-        label='Пользователь',
-        widget=forms.Select(
-            attrs={'class': 'profile__card-select'}
-        ),
-    )
-    group = forms.ModelChoiceField(
+
+    # user = forms.ModelChoiceField(
+    #     queryset=User.objects.all(),
+    #     label='Пользователь',
+    #     widget=forms.Select(
+    #         attrs={'class': 'profile__card-select'}
+    #     ),
+    # )
+    # user = widget=forms.HiddenInput(
+    #         attrs={'class': 'profile__card-select'}
+    #     )
+    groups = forms.ModelChoiceField(
         queryset=Groups.objects.all(),
         label='Группа',
         widget=forms.Select(
@@ -134,3 +138,201 @@ class PatientsForm(ModelForm):
         )
     )
     slug = {"slug": ("username",)}
+
+
+class VoiceForm(ModelForm):
+    class Meta:
+        model = Voices
+        fields = (
+            'name',
+            'voice',
+        )
+    name = forms.CharField(
+        label='Названия звука',
+        widget=forms.TextInput(
+            attrs={'class': 'profile__card-input'}
+        ),
+    )
+    voice = forms.FileField(
+        widget=forms.FileInput(
+
+        )
+    )
+
+
+class GroupsForm(ModelForm):
+
+    class Meta:
+        model=Groups
+        fields = (
+            'user',
+            'name',
+        )
+
+    user = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        label='Пользователь',
+        widget=forms.Select(
+            attrs={'class': 'profile__card-select'}
+        ),
+    )
+    name = forms.CharField(
+        label='Название группы',
+        widget=forms.TextInput(
+            attrs={'class': 'profile__card-input'}
+        ),
+    )
+    slug = {"slug": ("name",)}
+# ================================================================================================
+
+
+class TakingForm(ModelForm):
+    class Meta:
+        model = Taking
+        fields = (
+            # 'user',
+            'patient',
+            'pills',
+            'time',
+            'quantity_pills',
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday',
+        )
+
+    patient = forms.ModelChoiceField(
+        queryset=Patient.objects.all(),
+        label='Пациент',
+        widget=forms.Select(
+            attrs={'class': 'profile__card-select'}
+        ),
+    )
+    pills = forms.ModelChoiceField(
+        queryset=Pills.objects.all(),
+        label='таблетка',
+        widget=forms.Select(
+            attrs={'class': 'profile__card-select'}
+        ),
+    )
+    time = forms.TimeField(
+        label='Время',
+        widget=forms.TimeInput(
+            attrs={
+                'class': 'profile__card-input',
+                'placeholder': 'Время',
+            }
+        )
+    )
+    quantity_pills = forms.IntegerField(
+        label='Кол-во таблеток',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'profile__card-input',
+                'placeholder': 'Кол-во таблеток',
+            }
+        )
+    )
+    monday = forms.ChoiceField(
+        label='Понедельник',
+        choices=(('1', "Да"),
+                 ('2', 'Нет'),
+                 ),
+        widget=forms.Select(
+            attrs={
+                'class': 'profile__card-select',
+            }
+        )
+    )
+    tuesday = forms.ChoiceField(
+        label='Вторник',
+        choices=(('1', "Да"),
+                 ('2', 'Нет'),
+                 ),
+        widget=forms.Select(
+            attrs={
+                'class': 'profile__card-select',
+            }
+        )
+    )
+    wednesday = forms.ChoiceField(
+        label='Среда',
+        choices=(('1', "Да"),
+                 ('2', 'Нет'),
+                 ),
+        widget=forms.Select(
+            attrs={
+                'class': 'profile__card-select',
+            }
+        )
+    )
+    thursday = forms.ChoiceField(
+        label='Четверг',
+        choices=(('1', "Да"),
+                 ('2', 'Нет'),
+                 ),
+        widget=forms.Select(
+            attrs={
+                'class': 'profile__card-select',
+            }
+        )
+    )
+    friday = forms.ChoiceField(
+        label='Пятница',
+        choices=(('1', "Да"),
+                 ('2', 'Нет'),
+                 ),
+        widget=forms.Select(
+            attrs={
+                'class': 'profile__card-select',
+            }
+        )
+    )
+    saturday = forms.ChoiceField(
+        label='суббота',
+        choices=(('1', "Да"),
+                 ('2', 'Нет'),
+                 ),
+        widget=forms.Select(
+            attrs={
+                'class': 'profile__card-select',
+            }
+        )
+    )
+    sunday = forms.ChoiceField(
+        label='воскресенье',
+        choices=(('1', "Да"),
+                 ('2', 'Нет'),
+                 ),
+        widget=forms.Select(
+            attrs={
+                'class': 'profile__card-select',
+            }
+        )
+    )
+
+
+class PillsForm(ModelForm):
+    class Meta:
+        model = Pills
+        fields = (
+            # 'user',
+            'name',
+            'container',
+        )
+
+    name = forms.CharField(
+        label='Название таблетки',
+        widget=forms.TextInput(
+            attrs={'class': 'profile__card-input'}
+        ),
+    )
+    container = forms.IntegerField(
+        label='контейнер',
+        widget=forms.TextInput(
+            attrs={'class': 'profile__card-input'}
+        ),
+    )
