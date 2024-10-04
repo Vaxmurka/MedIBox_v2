@@ -1,39 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Создание расписания</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+{#{% load group_tag %}#}
+{% block content %}
+
+    <div class="app-content-header">
+        <h1 class="app-content-headerText">Пациенты</h1>
+        <button class="mode-switch" title="Switch Theme">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                <defs></defs>
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+        </button>
+        <a class="app-content-headerButton" href="{% url "patients:allpatients_list"%}">Вернуться</a>
+{#    onclick="window.dialog.showModal();"  #}
+    </div>
     <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">
-        {% csrf_token %}
-        {{ formt.patient }}
-        {{ formt.pills }}
-        {{ formt.time }}
-        {{ formt.quantity_pills }}
-        {{ formt.monday }}
-        {{ formt.tuesday }}
-        {{ formt.wednesday }}
-        {{ formt.thursday }}
-        {{ formt.friday }}
-        {{ formt.saturday }}
-        {{ formt.sunday }}
+        <div class="products-area-wrapper tableView">
+            <div class="products-header">
+                {% csrf_token %}
+                <div class="product-cell">Пациент:</div>
+                    {{ formt.patient }}
+                <div class="product-cell">Таблетка:</div>
+                    {{ formt.pills }}
+                <div class="product-cell">Время:</div>
+                    {{ formt.time }}
+                <div class="product-cell">Кол-во:</div>
+                    {{ formt.quantity_pills }}
 
-        <button type="submit" name="submit">Создать</button>
-        <button type="button" onclick="window.dialog.showModal()" >добавить таблетку</button>
+            </div>
+        </div>
+        <div class="products-area-wrapper horizontalView">
+            <div class="products-header" style="display: flex; column-gap: 50px; padding-top: 20px;">
+                {% csrf_token %}
+                <div class="product-cell">Пн:
+                    {{ formt.monday }}
+                </div>
+                <div class="product-cell">Вт:
+                    {{ formt.tuesday }}
+                </div>
+                <div class="product-cell">Ср:
+                    {{ formt.wednesday }}
+                </div>
+                <div class="product-cell">Чт:
+                    {{ formt.thursday }}
+                </div>
+                <div class="product-cell">Пт:
+                    {{ formt.friday }}
+                </div>
+                <div class="product-cell">Сб:
+                    {{ formt.saturday }}
+                </div>
+                <div class="product-cell">Вс:
+                    {{ formt.sunday }}
+                </div>
+            </div>
+        </div>
+        <div style="padding-top: 20px;">
+            <button type="submit" name="submit" class="app-content-headerButton">Создать прием</button>
+            <button type="button" onclick="window.dialog.showModal()" class="app-content-headerButton">Добавить таблетку</button>
+        </div>
+
     </form>
-</body>
-<dialog id="dialog">
+    <dialog id="dialog" style="color: #1D283CFF;">
         <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">
-        {% csrf_token %}
-        {{ formpi.name }}
-        {{ formpi.container }}
+            {% csrf_token %}
+            {{ formpi.name }}
+            {{ formpi.container }}
 
-        <button type="submit" name="submitT">Создать</button>
-    </form>
+        <button class="app-content-headerButton" type="submit" name="submitT">Создать</button>
+        </form>
         <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
-</dialog>
-</html>
+    </dialog>
+
+{% endblock %}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport"#}
+{#          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{##}
+{#</head>#}
+{#<body>#}
+{#    <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">#}
+{#        {% csrf_token %}#}
+{#        {{ formt.patient }}#}
+{#        {{ formt.pills }}#}
+{#        {{ formt.time }}#}
+{#        {{ formt.quantity_pills }}#}
+{#        {{ formt.monday }}#}
+{#        {{ formt.tuesday }}#}
+{#        {{ formt.wednesday }}#}
+{#        {{ formt.thursday }}#}
+{#        {{ formt.friday }}#}
+{#        {{ formt.saturday }}#}
+{#        {{ formt.sunday }}#}
+{##}
+{#        <button type="submit" name="submit">Создать</button>#}
+{#        <button type="button" onclick="window.dialog.showModal()" >добавить таблетку</button>#}
+{#    </form>#}
+{#</body>#}
+{#<dialog id="dialog">#}
+{#        <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">#}
+{#        {% csrf_token %}#}
+{#        {{ formpi.name }}#}
+{#        {{ formpi.container }}#}
+{##}
+{#        <button type="submit" name="submitT">Создать</button>#}
+{#    </form>#}
+{#        <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>#}
+{#</dialog>#}
+{#</html>#}

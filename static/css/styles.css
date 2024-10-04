@@ -772,6 +772,67 @@ body {
 .tableView .cell-label {
   display: none;
 }
+.horizontalView {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: row;
+  row-gap: 5px;
+}
+.horizontalView .products-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 0.2fr;
+  align-items: center;
+  border-radius: 4px;
+  background-color: var(--app-content-secondary-color);
+  position: sticky;
+  top: 0;
+}
+.horizontalView .products-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 0.2fr;
+  align-items: center;
+  border-radius: 4px;
+}
+.horizontalView .products-row:hover {
+  box-shadow: var(--filter-shadow);
+  background-color: var(--app-content-secondary-color);
+}
+.horizontalView .products-row .cell-more-button {
+  display: none;
+}
+.horizontalView .product-cell {
+  flex: 1;
+  padding: 8px 16px;
+  color: var(--app-content-main-color);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.horizontalView .product-cell img {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  margin-right: 6px;
+}
+.horizontalView .sort-button {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--app-content-main-color);
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+}
+.horizontalView .sort-button:hover {
+  color: var(--action-color);
+}
+.horizontalView .sort-button svg {
+  width: 12px;
+}
+.horizontalView .cell-label {
+  display: none;
+}
 
 .gridView {
   display: flex;
@@ -882,6 +943,23 @@ body {
   border: var(--app-content-main-color) solid 1px;
   background-color: transparent;
   border-radius: 10px;
+  color: var(--app-content-main-color);
+  padding-left: 10px;
+  font-size: 16px;
+}
+.taking__card-select {
+  width: 20%;
+  height: 30px;
+  border: var(--app-content-main-color) solid 1px;
+  background-color: transparent;
+  border-radius: 10px;
+  color: var(--app-content-main-color);
+  padding-left: 10px;
+  font-size: 16px;
+}
+.taking__card-select option {
+  border: var(--app-content-main-color) solid 1px;
+  background-color: transparent;
   color: var(--app-content-main-color);
   padding-left: 10px;
   font-size: 16px;
@@ -1096,5 +1174,10 @@ dialog p a:visited {
 
 .patient__dialog {
 
+}
+.products-header-days {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
 }
 

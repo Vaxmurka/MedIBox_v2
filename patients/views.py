@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-# from patients.forms import PatientsForm
 from patients.models import Patient, Groups, Taking
 from patients.forms import PatientsForm, TakingForm, PillsForm, VoiceForm, GroupsForm
 from django.contrib.auth.decorators import login_required

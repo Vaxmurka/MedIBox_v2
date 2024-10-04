@@ -243,7 +243,7 @@ class TakingForm(ModelForm):
                  ),
         widget=forms.Select(
             attrs={
-                'class': 'profile__card-select',
+                'class': 'taking__card-select',
             }
         )
     )
@@ -254,7 +254,7 @@ class TakingForm(ModelForm):
                  ),
         widget=forms.Select(
             attrs={
-                'class': 'profile__card-select',
+                'class': 'taking__card-select',
             }
         )
     )
@@ -265,7 +265,7 @@ class TakingForm(ModelForm):
                  ),
         widget=forms.Select(
             attrs={
-                'class': 'profile__card-select',
+                'class': 'taking__card-select',
             }
         )
     )
@@ -276,7 +276,7 @@ class TakingForm(ModelForm):
                  ),
         widget=forms.Select(
             attrs={
-                'class': 'profile__card-select',
+                'class': 'taking__card-select',
             }
         )
     )
@@ -287,7 +287,7 @@ class TakingForm(ModelForm):
                  ),
         widget=forms.Select(
             attrs={
-                'class': 'profile__card-select',
+                'class': 'taking__card-select',
             }
         )
     )
@@ -298,7 +298,7 @@ class TakingForm(ModelForm):
                  ),
         widget=forms.Select(
             attrs={
-                'class': 'profile__card-select',
+                'class': 'taking__card-select',
             }
         )
     )
@@ -309,7 +309,7 @@ class TakingForm(ModelForm):
                  ),
         widget=forms.Select(
             attrs={
-                'class': 'profile__card-select',
+                'class': 'taking__card-select',
             }
         )
     )
@@ -327,12 +327,16 @@ class PillsForm(ModelForm):
     name = forms.CharField(
         label='Название таблетки',
         widget=forms.TextInput(
-            attrs={'class': 'profile__card-input'}
+            attrs={'class': 'profile__card-input',
+                   'placeholder': 'Название таблеток:'
+                   }
         ),
     )
     container = forms.IntegerField(
         label='контейнер',
         widget=forms.TextInput(
-            attrs={'class': 'profile__card-input'}
+            attrs={'class': 'profile__card-input',
+                   'placeholder': 'Номер контейнера:'
+                   }
         ),
     )
