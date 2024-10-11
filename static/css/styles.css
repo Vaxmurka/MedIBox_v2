@@ -696,6 +696,18 @@ body {
   transition: 0.2s;
   cursor: pointer;
 }
+.taking-buttons-btn {
+  background-color: var(--action-color);
+  color: #fff;
+  font-size: 14px;
+  line-height: 24px;
+  border: none;
+  border-radius: 4px;
+  height: 45px;
+  padding: 0 16px;
+  transition: 0.2s;
+  cursor: pointer;
+}
 .app-content-headerButton:hover {
   background-color: var(--action-color-hover);
 }
@@ -725,6 +737,31 @@ body {
   background-color: var(--app-content-secondary-color);
   position: sticky;
   top: 0;
+}
+.tableView .taking-header {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr 1fr 1.8fr;
+  grid-auto-rows: 45px;
+  column-gap: 15px;
+  align-items: center;
+  border-radius: 4px;
+  background-color: var(--app-content-secondary-color);
+  position: sticky;
+  top: 0;
+  row-gap: 10px;
+}
+@media screen and (max-width: 767px) {
+  .tableView .taking-header {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    column-gap: 15px;
+    align-items: center;
+    border-radius: 4px;
+    background-color: var(--app-content-secondary-color);
+    position: sticky;
+    top: 0;
+    row-gap: 10px;
+  }
 }
 .tableView .products-row {
   display: grid;
@@ -778,6 +815,14 @@ body {
   flex-direction: row;
   row-gap: 5px;
 }
+@media screen and (max-width: 767px) {
+  .horizontalView {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+}
 .horizontalView .products-header {
   display: grid;
   grid-template-columns: repeat(3, 1fr) 0.2fr;
@@ -786,6 +831,36 @@ body {
   background-color: var(--app-content-secondary-color);
   position: sticky;
   top: 0;
+}
+.taking-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-content: center;
+  column-gap: 10px;
+}
+.taking1-header {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr 1fr 1.8fr;
+  grid-auto-rows: 45px;
+  width: 100%;
+  align-items: center;
+  border-radius: 4px;
+  background-color: var(--app-content-secondary-color);
+  position: sticky;
+  top: 0;
+  column-gap: 15px;
+}
+@media screen and (max-width: 767px) {
+  .taking1-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    border-radius: 4px;
+    background-color: var(--app-content-secondary-color);
+    position: sticky;
+    top: 0;
+  }
 }
 .horizontalView .products-row {
   display: grid;
@@ -941,11 +1016,24 @@ body {
   width: 100%;
   height: 30px;
   border: var(--app-content-main-color) solid 1px;
-  background-color: transparent;
+  background-color: var(--app-bg);
   border-radius: 10px;
   color: var(--app-content-main-color);
   padding-left: 10px;
   font-size: 16px;
+}
+@media screen and (max-width: 767px) {
+  .profile__card-select {
+    width: 95%;
+    margin-inline: auto;
+    height: 30px;
+    border: var(--app-content-main-color) solid 1px;
+    background-color: var(--app-bg);
+    border-radius: 10px;
+    color: var(--app-content-main-color);
+    padding-left: 10px;
+    font-size: 16px;
+  }
 }
 .taking__card-select {
   width: 20%;
@@ -973,7 +1061,7 @@ body {
 }
 .profile__card-input {
   width: 100%;
-  height: 100%;
+  height: auto;
   border: var(--app-content-main-color) solid 1px;
   color: var(--app-content-main-color);
   background-color: transparent;
@@ -1130,7 +1218,7 @@ body {
 /*Dialog Styles*/
 dialog {
   padding: 2rem 3rem;
-  background: white;
+  background: var(--app-bg);
   max-width: 800px;
   border-radius: 20px;
   border: 0;
@@ -1181,3 +1269,15 @@ dialog p a:visited {
   column-gap: 20px;
 }
 
+.device {
+  /*background: none;*/
+  background-color: transparent;
+}
+
+option {
+  color: var(--app-content-main-color);
+  /*background-color: var(--app-bg);*/
+}
+select {
+  background-color: var(--app-bg);
+}

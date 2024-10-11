@@ -155,7 +155,9 @@ class VoiceForm(ModelForm):
     )
     voice = forms.FileField(
         widget=forms.FileInput(
-
+            attrs={
+                'style': 'color:var(--app-content-main-color)'
+            }
         )
     )
 
@@ -236,82 +238,44 @@ class TakingForm(ModelForm):
             }
         )
     )
-    monday = forms.ChoiceField(
-        label='Понедельник',
-        choices=(('1', "Да"),
-                 ('2', 'Нет'),
-                 ),
-        widget=forms.Select(
-            attrs={
-                'class': 'taking__card-select',
-            }
-        )
+    monday = forms.TypedChoiceField(
+        label='Понедельниу',
+        widget=forms.CheckboxInput,
     )
-    tuesday = forms.ChoiceField(
+    tuesday = forms.TypedChoiceField(
         label='Вторник',
-        choices=(('1', "Да"),
-                 ('2', 'Нет'),
-                 ),
-        widget=forms.Select(
-            attrs={
-                'class': 'taking__card-select',
-            }
-        )
+        widget=forms.CheckboxInput,
     )
-    wednesday = forms.ChoiceField(
+    wednesday = forms.TypedChoiceField(
         label='Среда',
-        choices=(('1', "Да"),
-                 ('2', 'Нет'),
-                 ),
-        widget=forms.Select(
-            attrs={
-                'class': 'taking__card-select',
-            }
-        )
+        widget=forms.CheckboxInput,
     )
-    thursday = forms.ChoiceField(
+    thursday = forms.TypedChoiceField(
         label='Четверг',
-        choices=(('1', "Да"),
-                 ('2', 'Нет'),
-                 ),
-        widget=forms.Select(
-            attrs={
-                'class': 'taking__card-select',
-            }
-        )
+        widget=forms.CheckboxInput,
     )
-    friday = forms.ChoiceField(
+    friday = forms.TypedChoiceField(
         label='Пятница',
-        choices=(('1', "Да"),
-                 ('2', 'Нет'),
-                 ),
-        widget=forms.Select(
-            attrs={
-                'class': 'taking__card-select',
-            }
-        )
+        widget=forms.CheckboxInput,
     )
-    saturday = forms.ChoiceField(
+    saturday = forms.TypedChoiceField(
         label='суббота',
-        choices=(('1', "Да"),
-                 ('2', 'Нет'),
-                 ),
-        widget=forms.Select(
-            attrs={
-                'class': 'taking__card-select',
-            }
-        )
+        widget=forms.CheckboxInput,
     )
-    sunday = forms.ChoiceField(
+    # sunday = forms.ChoiceField(
+    #     label='воскресенье',
+    #     choices=(('1', "Да"),
+    #              ('2', 'Нет'),
+    #              ),
+    #     widget=forms.Select(
+    #         attrs={
+    #             'class': 'taking__card-select',
+    #         }
+    #     )
+    # )
+    sunday = forms.TypedChoiceField(
         label='воскресенье',
-        choices=(('1', "Да"),
-                 ('2', 'Нет'),
-                 ),
-        widget=forms.Select(
-            attrs={
-                'class': 'taking__card-select',
-            }
-        )
+        widget=forms.CheckboxInput,
     )
 
 

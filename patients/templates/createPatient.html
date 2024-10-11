@@ -1,48 +1,132 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Создание пользователя</title>
-</head>
-<body>
-    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post">
-        {% csrf_token %}
-        {{ formp.groups }}
-        {{ formp.voices }}
-        {{ formp.first_name }}
-        {{ formp.username }}
-        {{ formp.fingerprint }}
-        {{ formp.number }}
-        {{ formp.portion_of_water }}
+{#<!doctype html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport"#}
+{#          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{#    <title>Создание пользователя</title>#}
+{#</head>#}
+{#<body>#}
+{#    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post">#}
+{#        {% csrf_token %}#}
+{#        {{ formp.groups }}#}
+{#        {{ formp.voices }}#}
+{#        {{ formp.first_name }}#}
+{#        {{ formp.username }}#}
+{#        {{ formp.fingerprint }}#}
+{#        {{ formp.number }}#}
+{#        {{ formp.portion_of_water }}#}
+{##}
+{#        <button type="submit" name="submit">Создать</button>#}
+{#        <button type="button" onclick="window.dialog.showModal()" >Добавить звук</button>#}
+{#        <button type="button" onclick="window.dialogg.showModal()" >Создать группу</button>#}
+{#    </form>#}
+{#</body>#}
+{#<dialog id="dialog">#}
+{#    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" id="form" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        {{ formv.name }}#}
+{#        {{ formv.voice }}#}
+{##}
+{#        <button type="submit" name="submitV">Создать</button>#}
+{#        <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>#}
+{#    </form>#}
+{##}
+{#</dialog>#}
+{#<dialog id="dialogg">#}
+{#    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" id="form">#}
+{#        {% csrf_token %}#}
+{#        {{ formg.user }}#}
+{#        {{ formg.name }}#}
+{##}
+{#        <button type="submit" name="submitV">Создать</button>#}
+{#        <button onclick="window.dialogg.close();" aria-label="close" class="x">❌</button>#}
+{#    </form>#}
+{##}
+{#</dialog>#}
+{#</html>#}
 
-        <button type="submit" name="submit">Создать</button>
-        <button type="button" onclick="window.dialog.showModal()" >Добавить звук</button>
-        <button type="button" onclick="window.dialogg.showModal()" >Создать группу</button>
+{% extends "base.html" %}
+{% load static %}
+{#{% load group_tag %}#}
+{% block content %}
+
+    <div class="app-content-header">
+        <h1 class="app-content-headerText">Пациенты</h1>
+        <button class="mode-switch" title="Switch Theme">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                <defs></defs>
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+        </button>
+        <a class="app-content-headerButton" href="{% url "patients:allpatients_list"%}" style="display: flex; align-items: center;">Вернуться</a>
+{#    onclick="window.dialog.showModal();"  #}
+    </div>
+    <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">
+        <div class="taking-area-wrapper tableView">
+            <div class="taking-header">
+                {% csrf_token %}
+                <div class="product-cell">Имя пациента:</div>
+                    {{ formp.first_name }}
+                <div class="product-cell">Фамилия:</div>
+                    {{ formp.username }}
+                <div class="product-cell">ID отпечатка:</div>
+                    {{ formp.fingerprint }}
+                <div class="product-cell">Номер телефона:</div>
+                    {{ formp.number }}
+
+            </div>
+        </div>
+        <div class="products-area-wrapper horizontalView">
+            <div class="taking1-header">
+                {% csrf_token %}
+                <div class="product-cell">Группа:
+                </div>
+                {{ formp.groups }}
+                <div class="product-cell">Озвучка:
+                </div>
+                {{ formp.voices }}
+            </div>
+        </div>
+        <div class="taking-buttons" style="padding-top: 20px;">
+            <button type="submit" name="submit" class="taking-buttons-btn">Создать Пациента</button>
+            <button type="button" onclick="window.dialog.showModal()" class="taking-buttons-btn">Добавить звук</button>
+            <button type="button" onclick="window.dialogg.showModal()" class="taking-buttons-btn">Добавить группу</button>
+        </div>
+
     </form>
-</body>
-<dialog id="dialog">
-    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" id="form" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ formv.name }}
-        {{ formv.voice }}
+    <dialog id="dialog">
+        <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" id="form" enctype="multipart/form-data" style="row-gap: 10px; display: flex; flex-direction: column;">
+            {% csrf_token %}
+            {{ formv.name }}
+            {{ formv.voice }}
 
-        <button type="submit" name="submitV">Создать</button>
+        <button class="app-content-headerButton" type="submit" name="submitV">Создать звук</button>
+        </form>
         <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
-    </form>
+    </dialog>
 
-</dialog>
-<dialog id="dialogg">
-    <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" id="form">
-        {% csrf_token %}
-        {{ formg.user }}
-        {{ formg.name }}
+    <dialog id="dialogg">
+        <form action="{% url "patients:newpatient" %}" class="shop__dialog" method="post" style="row-gap: 10px; display: flex; flex-direction: column;">
+            {% csrf_token %}
+            {{ formg.user }}
+            {{ formg.name }}
 
-        <button type="submit" name="submitV">Создать</button>
+        <button class="app-content-headerButton" type="submit" name="submitG">Создать группу</button>
+        </form>
         <button onclick="window.dialogg.close();" aria-label="close" class="x">❌</button>
-    </form>
+    </dialog>
+    <style>
+        input[type='checkbox'] {
+            background-color: #2b55ff;
+            color: #2b55ff;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 10px;
+        }
+    </style>
 
-</dialog>
-</html>
+
+{% endblock %}

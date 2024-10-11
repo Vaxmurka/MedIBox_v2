@@ -6,17 +6,19 @@
     <div class="app-content-header">
         <h1 class="app-content-headerText">Пациенты</h1>
         <button class="mode-switch" title="Switch Theme">
-            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round"
+                 stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
                 <defs></defs>
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
             </svg>
         </button>
-        <a class="app-content-headerButton" href="{% url "patients:allpatients_list"%}">Вернуться</a>
+        <a class="app-content-headerButton" href="{% url "patients:allpatients_list"%}"
+           style="display: flex; align-items: center;">Вернуться</a>
 {#    onclick="window.dialog.showModal();"  #}
     </div>
     <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">
-        <div class="products-area-wrapper tableView">
-            <div class="products-header">
+        <div class="taking-area-wrapper tableView">
+            <div class="taking-header">
                 {% csrf_token %}
                 <div class="product-cell">Пациент:</div>
                     {{ formt.patient }}
@@ -30,7 +32,7 @@
             </div>
         </div>
         <div class="products-area-wrapper horizontalView">
-            <div class="products-header" style="display: flex; column-gap: 50px; padding-top: 20px;">
+            <div class="products-header" style="display: flex; padding-top: 20px; width: 100%; justify-content: space-between">
                 {% csrf_token %}
                 <div class="product-cell">Пн:
                     {{ formt.monday }}
@@ -61,16 +63,27 @@
         </div>
 
     </form>
-    <dialog id="dialog" style="color: #1D283CFF;">
-        <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post">
+    <dialog id="dialog">
+        <form action="{% url "patients:newtaking" %}" class="shop__dialog" method="post" style="row-gap: 10px; display: flex; flex-direction: column;">
             {% csrf_token %}
             {{ formpi.name }}
             {{ formpi.container }}
 
-        <button class="app-content-headerButton" type="submit" name="submitT">Создать</button>
+        <button class="app-content-headerButton" type="submit" name="submitT">Создать таблетку</button>
         </form>
         <button onclick="window.dialog.close();" aria-label="close" class="x">❌</button>
     </dialog>
+    <style>
+        input[type='checkbox'] {
+            background-color: #2b55ff;
+            color: #2b55ff;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 10px;
+        }
+    </style>
+
 
 {% endblock %}
 {#<html lang="en">#}

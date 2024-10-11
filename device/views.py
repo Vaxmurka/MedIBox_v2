@@ -7,9 +7,10 @@ from patients.serializer import PatientSerializer, TakingSerializer
 
 
 def commit(username):
-    f = open('patient.json', 'w')
-    f.close()
+    # f = open('patient.json', 'w')
+    # f.close()
     data = []
+    dataTaking = []
 
     patients = Patient.objects.filter(user=username)
     for patient in patients:
@@ -24,10 +25,11 @@ def commit(username):
             print(dataTaking)
 
             data.append(dataTaking)
+            print(dataPatient)
 
-            with open('patient.json', 'a') as outfile:
+            with open('patient.json', 'w') as outfile:
                 json.dump(dataTaking, outfile)
-
+    # print(dataTaking)
     return data
 
 
@@ -72,6 +74,6 @@ def index(request):
     context = {
         'title': 'MedIBox - Устройства',
         'device': 'device',
-        'data': commit(username)
+        # 'data': commit(username)
     }
     return render(request, "device.html", context)
