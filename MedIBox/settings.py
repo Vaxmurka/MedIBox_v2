@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'patients',
     'users',
     'device',
+    'channels',
+    'daphne',
 
     'rest_framework',
 ]
