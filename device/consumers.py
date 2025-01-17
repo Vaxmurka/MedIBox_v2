@@ -2,7 +2,11 @@ from channels.generic.websocket import WebsocketConsumer
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 from channels.db import database_sync_to_async
-from django.contrib.auth.models import User
+from users.models import User
+import time
+from datetime import datetime, time, timedelta
+
+from patients.models import Patient, Taking
 
 
 class DeviceConsumer(AsyncWebsocketConsumer):
@@ -39,22 +43,52 @@ class DeviceConsumer(AsyncWebsocketConsumer):
         try:
             # Получаем информацию о пользователе
             user = User.objects.get(username=user_id)
+            list_patients = []
             print(user)
-            user_info = {
-                'username': user.username,
-                'email': user.email,
-                'id': user.id,
-                'data': {
-                    'time': '12.00',
-                    'type': 12,
-                    'count': 1
-                }
-            }
-            return {
-                'user_info': user_info,
-            }
+            patients = Patient.objects.filter(user=user)
+
+            for patient in patients:
+                print(patient.username)
+                takings = Taking.objects.filter(patient=patient)
+                print(takings)
+
+                for taking in takings:
+
+                    user_info = {
+                        'username': patient.username,
+                        'id': patient.fingerprint,
+                        'data': {
+                            'time': taking.time,
+                            'type': taking.pills.container,
+                            'count': taking.quantity_pills
+                        }
+                    }
+                    if check_patient_time(user_info['data']['time']):
+                        list_patients.append(user_info)
+
+
+            print(list_patients)
+            if len(list_patients)>0:
+                min_time_patient = min(list_patients, key=lambda x: x['data']['time'])
+                min_time_patient_json = json.dumps(min_time_patient, default=str)
+
+                return {'user_info': min_time_patient_json}
+            else:
+                return {'user_info': None}
         except User.DoesNotExist:
-            return  {'error': 'User not found'}
+            return {'error': 'User not found'}
+
+def check_patient_time(time1) -> bool:
+    time2=datetime.now().time()
+    dt1 = datetime.combine(datetime(1900, 1, 1), time1)
+    dt2 = datetime.combine(datetime(1900, 1, 1), time2)
+
+    difference = dt1 - dt2
+    difference=difference.total_seconds()
+    if difference>=0:
+        return True
+    else:
+        return False
 
 
         # # Пробуем распарсить текст как JSON

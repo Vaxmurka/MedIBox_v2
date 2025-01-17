@@ -36,14 +36,17 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    'daphne',
+    'channels',
     "django.contrib.staticfiles",
 
     'main',
     'patients',
     'users',
     'device',
-    'channels',
-    'daphne',
+
+
+
 
     'rest_framework',
 ]
@@ -76,7 +79,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "MedIBox.wsgi.application"
+ASGI_APPLICATION = "MedIBox.asgi.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}
 
 
 # Database

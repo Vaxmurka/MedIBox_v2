@@ -108,7 +108,7 @@ class Taking(models.Model):
     time = models.TimeField()
     quantity_pills = models.IntegerField()
     monday = models.BooleanField(default=False, choices=[(1, 'true'), (0, 'false')], null=True, blank=True)
-    tuesday = models.BooleanField(default=False)
+    tuesday = models.BooleanField(default=False, null=True, blank=True)
     wednesday = models.BooleanField(default=False, null=True, blank=True)
     thursday = models.BooleanField(default=False, null=True, blank=True)
     friday = models.BooleanField(default=False, null=True, blank=True)
