@@ -80,7 +80,7 @@ class DeviceConsumer(AsyncWebsocketConsumer):
             print(list_patients)
             if len(list_patients)>0:
                 min_time_patient = min(list_patients, key=lambda x: x['data']['time'])
-                min_time_patient_json = json.dumps(min_time_patient, default=str)
+                min_time_patient_json = json.dumps(min_time_patient, ensure_ascii=False, default=str)
 
                 return {'user_info': min_time_patient_json}
             else:
@@ -101,7 +101,7 @@ def check_patient_time(time1, uw) -> bool:
     wd = today.weekday()
     print()
 
-    if difference >= 0 and (uw[wd]==True):
+    if difference >= 0 and uw[wd]:
         return True
     else:
         return False
