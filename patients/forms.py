@@ -238,27 +238,33 @@ class TakingForm(ModelForm):
             }
         )
     )
-    monday = forms.TypedChoiceField(
+    monday = forms.BooleanField(
+        required=False,
         label='Понедельниу',
         widget=forms.CheckboxInput,
     )
-    tuesday = forms.TypedChoiceField(
+    tuesday = forms.BooleanField(
+        required=False,
         label='Вторник',
         widget=forms.CheckboxInput,
     )
-    wednesday = forms.TypedChoiceField(
+    wednesday = forms.BooleanField(
+        required=False,
         label='Среда',
         widget=forms.CheckboxInput,
     )
-    thursday = forms.TypedChoiceField(
+    thursday = forms.BooleanField(
+        required=False,
         label='Четверг',
         widget=forms.CheckboxInput,
     )
-    friday = forms.TypedChoiceField(
+    friday = forms.BooleanField(
+        required=False,
         label='Пятница',
         widget=forms.CheckboxInput,
     )
-    saturday = forms.TypedChoiceField(
+    saturday = forms.BooleanField(
+        required=False,
         label='суббота',
         widget=forms.CheckboxInput,
     )
@@ -273,7 +279,8 @@ class TakingForm(ModelForm):
     #         }
     #     )
     # )
-    sunday = forms.TypedChoiceField(
+    sunday = forms.BooleanField(
+        required=False,
         label='воскресенье',
         widget=forms.CheckboxInput,
     )
