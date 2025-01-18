@@ -11,25 +11,30 @@
             </svg>
         </button>
     </div>
-{#    <div class="content_patient" style="display: grid; grid-template-columns: repeat(3, 1fr)">#}
-{#        <div class="products-area-wrapper tableView">#}
-{#            <div class="products-header">#}
-{#                <div class="product-cell image">ФИО</div>#}
-{#                <div class="product-cell category">Группа</div>#}
-    {#            <div class="product-cell sales">Количество воды</div>#}
-{#                <div class="product-cell price">id</div>#}
-{#            </div>#}
-{#            {% for p in patients %}#}
-{#                <a class="products-row">#}
-{#                    <div class="product-cell image">#}
-{#                    <span>{{ p.username }} {{ p.first_name }}</span>#}
-{#                    </div>#}
-    {#                <div class="product-cell category">{{ group }}</div>#}
-{#                    <div class="product-cell category">{{ p.groups }}</div>#}
-    {#                <div class="product-cell sales">{{ p.portion_of_water }}</div>#}
-{#                    <div class="product-cell stock">{{ p.display_id }}</div>#}
-{#                </a>#}
-{#            {% endfor %}#}
-{#        </div>#}
-{#    </div>#}
+    <div class="dashboard">
+        <div class="device-block">
+            <div class="device-dashboard" title="нажмите, чтобы перейти к устройству">
+                <div class="device__block" id="11111">
+                    <img src="/static/images/test.svg" alt="test"
+                         width="580" height="893" class="device__block_image">
+                    <div class="device__block_content">
+                        <p class="device__block_text-main">Таблетница</p>
+                        <p class="device__block_text-description">MedIBox_v2</p>
+                        <button class="device__block_button">Подключиться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="user-block">
+            <div class="user">
+                <h2>Здравствуйте, <span>{{ user.username }}</span></h2>
+                <h2 id="timeField">Сейчас: <span>00:00</span></h2>
+            </div>
+        </div>
+        <div class="patient-block">
+            {{ next_taking }}
+        </div>
+    </div>
+    <link rel="stylesheet" href="{% static "css/dashboardStyle.css" %}">
+    <script src="{% static "scripts/script_dashboard.js" %}"></script>
 {% endblock %}
