@@ -63,7 +63,17 @@ class DeviceConsumer(AsyncWebsocketConsumer):
                             'count': taking.quantity_pills
                         }
                     }
-                    if check_patient_time(user_info['data']['time']):
+                    user_weekday = [
+                        taking.monday,
+                        taking.tuesday,
+                        taking.wednesday,
+                        taking.thursday,
+                        taking.friday,
+                        taking.saturday,
+                        taking.sunday
+                    ]
+                    print(user_weekday)
+                    if check_patient_time(user_info['data']['time'], user_weekday):
                         list_patients.append(user_info)
 
 
@@ -78,14 +88,20 @@ class DeviceConsumer(AsyncWebsocketConsumer):
         except User.DoesNotExist:
             return {'error': 'User not found'}
 
-def check_patient_time(time1) -> bool:
+
+def check_patient_time(time1, uw) -> bool:
     time2=datetime.now().time()
     dt1 = datetime.combine(datetime(1900, 1, 1), time1)
     dt2 = datetime.combine(datetime(1900, 1, 1), time2)
 
     difference = dt1 - dt2
-    difference=difference.total_seconds()
-    if difference>=0:
+    difference = difference.total_seconds()
+
+    today = datetime.today()
+    wd = today.weekday()
+    print()
+
+    if difference >= 0 and (uw[wd]==True):
         return True
     else:
         return False
