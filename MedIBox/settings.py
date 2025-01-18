@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+
     'daphne',
     'channels',
     "django.contrib.staticfiles",
@@ -44,9 +45,6 @@ INSTALLED_APPS = [
     'patients',
     'users',
     'device',
-
-
-
 
     'rest_framework',
 ]

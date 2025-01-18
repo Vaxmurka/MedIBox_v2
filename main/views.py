@@ -3,37 +3,22 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from patients.forms import PatientsForm
-from patients.models import Patient, Groups
+from patients.models import Patient, Groups, Taking
 from users.models import User
-
-
-# def index(request):
-#
-#     context = {
-#         'title': 'MedIBox - Главная',
-#         'main': 'main',
-#
-#     }
-#
-#     return render(request, "main/index.html", context)
+import datetime
 
 
 def index(request):
-    users = User.objects.all()
+    user = request.user
     data_group = None
-    patients = Patient.objects.filter(user_id=request.user.id)
-    for user in users:
-
-        groups = Groups.objects.filter(user=user)
-        for group in groups:
-            group = group.name
-            data_group = group
+    patients = Patient.objects.filter(user=user)
 
     context = {
         'title': 'MedIBox - Главная',
         'group': data_group,
         'patients': patients,
-        # 'patient': 'patient',
+        'next_taking': 0,
+        'user': user,
         'main': 'main',
     }
     return render(request, 'main/index.html', context)
