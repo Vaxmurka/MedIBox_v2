@@ -128,7 +128,7 @@ body {
   Приводим к единому цвету svg-элементы
  */
 svg *[fill] {
-  fill: currentColor;
+  /*fill: currentColor;*/
 }
 
 svg *[stroke] {
@@ -180,6 +180,8 @@ svg * {
   --app-content-secondary-color: #1d283c;
   --filter-reset: #2c394f;
   --filter-shadow: rgba(16, 24, 39, 0.8) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+  --filter-svg-image: invert(68%) saturate(4500%) hue-rotate(234deg) brightness(100%) contrast(91%);
 }
 
 .light:root {
@@ -192,6 +194,8 @@ svg * {
   --sidebar-active-link: rgba(195, 207, 244, 1);
   --sidebar-main-color: #1f1c2e;
   --filter-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  --filter-svg-image: invert(68%) sepia(30%) saturate(4500%) hue-rotate(234deg) brightness(100%) contrast(91%);
 }
 
 .visually-hidden {

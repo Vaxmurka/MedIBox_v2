@@ -5,36 +5,389 @@
     <div class="app-content-header">
         <h1 class="app-content-headerText">Главная</h1>
         <button class="mode-switch" title="Switch Theme">
-            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+            <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                 stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
                 <defs></defs>
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
             </svg>
         </button>
     </div>
     <div class="dashboard">
-        <div class="device-block">
-            <div class="device-dashboard" title="нажмите, чтобы перейти к устройству">
-                <div class="device__block" id="11111">
-                    <img src="/static/images/test.svg" alt="test"
-                         width="580" height="893" class="device__block_image">
-                    <div class="device__block_content">
-                        <p class="device__block_text-main">Таблетница</p>
-                        <p class="device__block_text-description">MedIBox_v2</p>
-                        <button class="device__block_button">Подключиться</button>
+        <div class="card-body">
+            <div class="welcome-elem">
+                <h2 class="welcome-text">Здравствуйте, <span>{{ user.username }} 👋🏻</span></h2>
+                <div class="user-info">
+                    <div>
+                        {#                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">#}
+                        {#                        <path d="M20 26.25V23.75C20 22.4239 19.4732 21.1521 18.5355 20.2145C17.5979 19.2768 16.3261 18.75 15 18.75H7.5C6.17392 18.75 4.90215 19.2768 3.96447 20.2145C3.02678 21.1521 2.5 22.4239 2.5 23.75V26.25" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>#}
+                        {#                        <path d="M11.25 13.75C14.0114 13.75 16.25 11.5114 16.25 8.75C16.25 5.98858 14.0114 3.75 11.25 3.75C8.48858 3.75 6.25 5.98858 6.25 8.75C6.25 11.5114 8.48858 13.75 11.25 13.75Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>#}
+                        {#                        <path d="M27.5 26.2499V23.7499C27.4992 22.642 27.1304 21.5658 26.4517 20.6902C25.773 19.8147 24.8227 19.1893 23.75 18.9124" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>#}
+                        {#                        <path d="M20 3.91235C21.0755 4.18773 22.0288 4.81323 22.7095 5.69024C23.3903 6.56725 23.7598 7.64589 23.7598 8.7561C23.7598 9.86632 23.3903 10.945 22.7095 11.822C22.0288 12.699 21.0755 13.3245 20 13.5999" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>#}
+                        {#                        </svg>#}
+                        <h3>Количество пациентов: <span>{{ countPatients }}</span></h3>
+                    </div>
+                    <div>
+                        {#                        <img src="" alt="phone">#}
+
+                        <h3>Телефон: <span>{{ phone }}</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="pill-info">
+                <div>
+                    <h4>Текущее время</h4>
+                    <h4 id="timeField">00:00</h4>
+                </div>
+                <div id="pillChart">
+                </div>
+            </div>
+        </div>
+        <div class="device-card">
+            <div class="device-name">
+                <h2>Таблетница MedIBox_V2</h2>
+            </div>
+            <div class="device-content">
+                <img src="{% static "images/test.svg" %}" alt="device">
+                <div class="device-content-inner">
+                    <div class="device-action">
+                        <ul class="action-list">
+                            <li class="action-elem">
+                                <button class="disabled">Выдать таблетку</button>
+                            </li>
+                            <li class="action-elem">
+                                <button class="disabled">Налить воды</button>
+                            </li>
+                            <li class="action-elem">
+                                <button class="disabled">Сказать фразу</button>
+                            </li>
+                            <li class="action-elem">
+                                <select class="disabled">
+                                    <option value="0">Получить контейнер</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="device-info">
+                        <div class="status active">
+                            <p>Active</p>
+                        </div>
+                        <button>Подключить</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="user-block">
-            <div class="user">
-                <h2>Здравствуйте, <span>{{ user.username }}</span></h2>
-                <h2 id="timeField">Сейчас: <span>00:00</span></h2>
-            </div>
-        </div>
-        <div class="patient-block">
-            {{ next_taking }}
-        </div>
     </div>
-    <link rel="stylesheet" href="{% static "css/dashboardStyle.css" %}">
-    <script src="{% static "scripts/script_dashboard.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <style>
+        .dashboard {
+            color: var(--sidebar-link);
+            display: flex;
+            align-items: stretch;
+            row-gap: 50px;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: row;
+        }
+
+        @media (max-width: 1200px) {
+            .card-body {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .welcome-elem {
+            border-bottom: 1px solid #e6e6e8;
+            position: relative;
+            display: flex;
+        {#width: 60%;#} flex-direction: column;
+            row-gap: 30px;
+            justify-content: space-around;
+
+            h2 {
+                margin-left: 1.5rem;
+                color: var(--sidebar-link);
+                font-size: large;
+
+                span {
+                    color: #b0bcff;
+                }
+            }
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-around;
+            flex-wrap: wrap;
+
+            div {
+                display: flex;
+                float: left;
+                flex-direction: row;
+                column-gap: 10px;
+
+                img {
+                    height: 100%;
+                    width: auto;
+                }
+
+                h3 {
+                    height: 100%;
+                    width: auto;
+
+                }
+            }
+        }
+
+        .pill-info {
+        {#width: 40%;#} padding-left: 1.5rem;
+            position: relative;
+            align-items: center;
+            justify-content: space-between;
+            display: flex;
+            flex-direction: row;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                align-content: space-between;
+            }
+
+            #pillChart {
+                min-height: 150px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .pill-info {
+                width: 40%;
+            }
+
+            .welcome-elem {
+                width: 60%;
+                border-right: 1px solid #e6e6e8;
+                border-bottom: none;
+            }
+        }
+
+        .device-card {
+            display: flex;
+            padding: 1.5rem;
+            flex-direction: column;
+            background-color: var(--app-content-secondary-color);
+            border-radius: 10px;
+        }
+
+        .device-name {
+            width: 100%;
+            color: var(--sidebar-link);
+            border-bottom: 1px solid #e6e6e8;
+
+            h2 {
+                text-align: center;
+            }
+        }
+
+        .device-content {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 300px;
+
+            .status {
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                padding: 4px 8px;
+                font-size: 12px;
+
+                &:before {
+                    content: "";
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                    margin-right: 4px;
+                }
+            }
+
+            .active {
+                color: #2ba972;
+                background-color: rgba(43, 169, 114, 0.2);
+
+                &:before {
+                    background-color: #2ba972;
+                }
+            }
+
+            .disabled {
+                color: #59719d;
+                background-color: rgba(89, 113, 157, 0.2);
+
+                ::before {
+                    background-color: #59719d;
+                }
+
+            }
+
+            .disabled:hover {
+                background-color: rgba(89, 113, 157, 0.7);
+                color: #bccadd;
+            }
+
+            img {
+                filter: var(--filter-svg-image);
+                width: 40%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .device-content {
+                flex-direction: column;
+                height: auto;
+                align-items: center;
+            }
+        }
+
+        @media (min-width: 767px) {
+            .device-content-inner {
+                width: 60%;
+            }
+        }
+
+        .device-content-inner {
+            display: flex;
+            padding: 1.5rem;
+            flex-direction: column;
+            height: auto;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .device-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 1.5rem;
+
+            button {
+                background-color: #2b55ff;
+                height: 38px;
+                width: 160px;
+                border: none;
+                border-radius: 10px;
+                color: #fff;
+                font-size: 16px;
+            }
+        }
+
+        .device-action {
+            display: flex;
+            width: 100%;
+        }
+
+        .action-list {
+            display: grid;
+            width: 100%;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            grid-auto-rows: 50px;
+        }
+
+        .action-elem {
+            width: 90%;
+            margin-inline: auto;
+            display: flex;
+            flex-direction: row;
+
+            select {
+                width: 100%;
+                height: auto;
+                border: none;
+                border-radius: 10px;
+
+                option {
+                    text-align: center;
+                }
+            }
+
+            button {
+                width: 100%;
+                height: auto;
+                border: none;
+                border-radius: 10px;
+            }
+        }
+    </style>
+    {#    <link rel="stylesheet" href="{% static "css/dashboardStyle.css" %}">#}
+    <script> {# src="{% static "scripts/script_dashboard.js" %} #}
+
+    function updateClock() {
+        const now = new Date();
+
+        let hours = now.getHours();
+        let minute = now.getMinutes();
+
+        const elem = document.querySelector('#timeField') //.querySelector('span');
+        elem.textContent = String(hours) + "h " + String(minute < 10 ? 0 : '') + String(minute) + "m";
+
+    }
+
+    setInterval(updateClock, 1000);
+
+    </script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages: ["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Сектор 1', {{ pills.0 }}],
+                ['Сектор 2', {{ pills.1 }}],
+                ['Сектор 3', {{ pills.2 }}],
+                ['Сектор 4', {{ pills.3 }}],
+                ['Сектор 5', {{ pills.4 }}],
+                ['Сектор 6', {{ pills.5 }}],
+                ['Сектор 7', {{ pills.6 }}],
+                ['Сектор 8', {{ pills.7 }}]
+            ]);
+
+            var options = {
+                pieHole: 0.5,
+                backgroundColor: 'transparent',
+                legend: 'none',
+                pieSliceText: 'none',
+                slices: {
+                    0: {color: '#2b55ff'}, // Один цвет для всех секторов
+                    1: {color: '#2b55ff'},
+                    2: {color: '#2b55ff'},
+                    3: {color: '#2b55ff'},
+                    4: {color: '#2b55ff'},
+                    5: {color: '#2b55ff'},
+                    6: {color: '#2b55ff'},
+                    7: {color: '#2b55ff'},
+                }
+            };
+
+
+            var chart = new google.visualization.PieChart(document.getElementById('pillChart'));
+            chart.draw(data, options);
+        }
+    </script>
 {% endblock %}

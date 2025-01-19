@@ -42,7 +42,7 @@
     font-weight: bold;
 }
 .device__block_image {
-    filter: invert(68%) sepia(30%) saturate(4500%) hue-rotate(234deg) brightness(100%) contrast(91%);;
+    filter: var(--filter-svg-image);
     width: 116px;
     height: 140px;
     border-radius: 15px;

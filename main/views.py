@@ -17,7 +17,9 @@ def index(request):
         'title': 'MedIBox - Главная',
         'group': data_group,
         'patients': patients,
-        'next_taking': 0,
+        'countPatients': len(patients),
+        'phone': '+7 (900) 123 45-67',
+        'pills': [1, 1, 1, 1, 1, 1, 1, 1],
         'user': user,
         'main': 'main',
     }
