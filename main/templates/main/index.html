@@ -34,8 +34,9 @@
                 </div>
             </div>
             <div class="pill-info">
-                <div>
-                    <h4>Текущее время</h4>
+                <div class="time">
+                    <h4>Текущее время: </h4>
+                    <div class="space" style="width: 50px; height: 1px; background: none;"></div>
                     <h4 id="timeField">00:00</h4>
                 </div>
                 <div id="pillChart">
@@ -84,6 +85,41 @@
                 </div>
             </div>
         </div>
+        <div class="patient-card">
+            <div class="patient-card-header">
+                <h2>Список пациентов</h2>
+                <div class="patient-row header-row">
+                    <div class="patient-name">ФИО</div>
+                    <div class="patient-group">Группа</div>
+                    <div class="patient-number">Телефон</div>
+                    <div class="patient-number">ID</div>
+                </div>
+            </div>
+            {% for p in patients %}
+                <a class="patient-row" href="{% url "patients:patient" patient_slug=p.slug %}">
+                    <div class="patient-name">
+                        <span>{{ p.username }} {{ p.first_name }}</span>
+                    </div>
+                    <div class="patient-group">{{ p.groups }}</div>
+                    <div class="patient-number">{{ p.number }}</div>
+                    <div class="patient-id">{{ p.display_id }}</div>
+                </a>
+                <a class="patient-column" href="{% url "patients:patient" patient_slug=p.slug %}">
+                    <div class="elem">
+                        <div class="patient-name">
+                        <span>{{ p.username }} {{ p.first_name }}</span>
+                        </div>
+                        <div class="patient-group">{{ p.groups }}</div>
+                    </div>
+
+                    <div class="elem">
+                        <div class="patient-number">{{ p.number }}</div>
+                        <div class="patient-id">{{ p.display_id }}</div>
+                    </div>
+
+                </a>
+            {% endfor %}
+        </div>
     </div>
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
     <style>
@@ -114,14 +150,18 @@
             border-bottom: 1px solid #e6e6e8;
             position: relative;
             display: flex;
-        {#width: 60%;#} flex-direction: column;
+            flex-direction: column;
             row-gap: 30px;
+            padding-inline: 1.5rem;
             justify-content: space-around;
 
             h2 {
-                margin-left: 1.5rem;
+                text-align: center;
                 color: var(--sidebar-link);
                 font-size: large;
+                padding: 1.5rem;
+                background-color: var(--app-content-secondary-color);
+                border-radius: 10px;
 
                 span {
                     color: #b0bcff;
@@ -186,6 +226,25 @@
             }
         }
 
+        @media (max-width: 600px) {
+            .pill-info {
+                display: flex;
+                flex-direction: column;
+                padding-left: 0;
+
+                .time {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding-inline: 1.5rem;
+                    width: 100%;
+                    background-color: var(--app-content-secondary-color);
+                    border-radius: 10px;
+                    margin-top: 20px;
+                }
+            }
+        }
+
         .device-card {
             display: flex;
             padding: 1.5rem;
@@ -223,6 +282,12 @@
                     height: 4px;
                     border-radius: 50%;
                     margin-right: 4px;
+                }
+            }
+
+            @media (max-width: 500px) {
+                .status {
+                    display: none;
                 }
             }
 
@@ -272,7 +337,7 @@
 
         .device-content-inner {
             display: flex;
-            padding: 1.5rem;
+            padding: 1.5rem 0;
             flex-direction: column;
             height: auto;
             justify-content: space-between;
@@ -296,6 +361,16 @@
             }
         }
 
+        @media (max-width: 500px) {
+            .device-info {
+                margin-top: 20px;
+                padding: 1.5rem 0.9rem;
+                button {
+                    width: 100%;
+                }
+            }
+        }
+
         .device-action {
             display: flex;
             width: 100%;
@@ -307,6 +382,12 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             grid-auto-rows: 50px;
+        }
+
+        @media (max-width: 500px) {
+            .action-list {
+                grid-template-columns: 1fr;
+            }
         }
 
         .action-elem {
@@ -333,9 +414,103 @@
                 border-radius: 10px;
             }
         }
+
+        .patient-card {
+            display: flex;
+            padding: 1.5rem;
+            flex-direction: column;
+            background-color: var(--app-content-secondary-color);
+            border-radius: 10px;
+
+            .patient-row {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                font-size: large;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .patient-column {
+                display: flex;
+                flex-direction: column;
+                text-align: start;
+                row-gap: 10px;
+                margin-bottom: 20px;
+                padding: 10px;
+                border-radius: 10px;
+                background-color: rgba(89, 113, 157, 0.2);
+
+                .elem {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+            }
+            {% comment %}
+            @media (max-width: 700px) {
+                .patient-row { display: none; }
+                .patient-column { display: flex; }
+            }
+            @media (min-width: 700px) {
+                .patient-row { display: flex; }
+                .patient-column { display: none; }
+            }
+            {% endcomment %}
+
+        }
+        .patient-card-header {
+            width: 100%;
+            color: var(--sidebar-link);
+            border-bottom: 1px solid #e6e6e8;
+            margin-bottom: 20px;
+
+            h2 { text-align: center; }
+        }
+        .header-row {
+            margin-bottom: 5px;
+            padding-inline: 1.5rem;
+            color: #b0bcff;
+        }
+        .patient-id, .patient-number { text-align: end; }
+        .patient-name { text-align: start; }
+        .patient-id { color: gray; }
+
+        .patient-hide {
+            display: none;
+        }
+
     </style>
     {#    <link rel="stylesheet" href="{% static "css/dashboardStyle.css" %}">#}
     <script> {# src="{% static "scripts/script_dashboard.js" %} #}
+
+    const desktopBlock = document.querySelectorAll('.patient-row');
+    const mobileBlock = document.querySelectorAll('.patient-column');
+
+    function checkScreenWidth() {
+        if (window.innerWidth < 700) {
+            {#desktopBlock.forEach(elem => { elem.classList.add('patient-hide'); });#}
+            {#mobileBlock.forEach(elem => { elem.classList.remove('patient-hide'); });#}
+            {#desktopBlock.forEach(elem => { elem.style.visibility = 'hidden'; });#}
+            {#mobileBlock.forEach(elem => { elem.style.visibility = 'visible'; });#}
+            desktopBlock.forEach(elem => { elem.style.display = 'none'; });
+            mobileBlock.forEach(elem => { elem.style.display = ''; });
+
+        } else {
+            {#desktopBlock.forEach(elem => { elem.classList.remove('patient-hide'); });#}
+            {#mobileBlock.forEach(elem => { elem.classList.add('patient-hide'); });#}
+            {#mobileBlock.forEach(elem => { elem.style.visibility = 'hidden'; });#}
+            {#desktopBlock.forEach(elem => { elem.style.visibility = 'visible'; });#}
+            mobileBlock.forEach(elem => { elem.style.display = 'none'; });
+            desktopBlock.forEach(elem => { elem.style.display = ''; });
+        }
+    }
+
+    // Вызываем функцию при загрузке страницы
+    checkScreenWidth();
+
+    // Добавляем обработчик события при изменении размера окна
+    window.addEventListener('resize', checkScreenWidth);
+
 
     function updateClock() {
         const now = new Date();
