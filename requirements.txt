@@ -1,0 +1,5 @@
+django
+pillow
+channels
+daphne
+django-rest-framework

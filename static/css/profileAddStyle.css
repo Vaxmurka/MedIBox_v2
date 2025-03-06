@@ -1,0 +1,15 @@
+.popup_profile {
+    min-width: 450px;
+    color: var(--app-content-main-color);
+
+    .btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .YesBtn:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+    }
+}
